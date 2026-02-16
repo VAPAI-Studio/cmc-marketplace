@@ -5,6 +5,7 @@ Quick manual test of auth endpoints
 
 import requests
 import json
+import time
 
 BASE_URL = "http://localhost:8000"
 
@@ -48,6 +49,10 @@ def test_auth_flow():
         print("\n❌ Failed to create creator")
         return
 
+    # Wait to avoid rate limit
+    print("\n⏳ Waiting 3 seconds to avoid rate limit...")
+    time.sleep(3)
+
     # Test 3: Register buyer
     print("\n👤 Registering new buyer...")
     buyer_data = {
@@ -66,6 +71,10 @@ def test_auth_flow():
     else:
         print("\n❌ Failed to create buyer")
         return
+
+    # Wait to avoid rate limit
+    print("\n⏳ Waiting 3 seconds to avoid rate limit...")
+    time.sleep(3)
 
     # Test 4: Register admin
     print("\n👤 Registering new admin...")
