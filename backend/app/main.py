@@ -59,11 +59,16 @@ async def root():
 
 
 # ==========================================
-# API Router Imports (will be added in later phases)
+# API Router Imports
 # ==========================================
 
-# from app.api import auth, listings, ai, inquiries, admin
-# app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
+from app.api import auth, users
+
+app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
+app.include_router(users.router, prefix="/api/users", tags=["users"])
+
+# To be added in later phases:
+# from app.api import listings, ai, inquiries, admin
 # app.include_router(listings.router, prefix="/api/listings", tags=["listings"])
 # app.include_router(ai.router, prefix="/api/ai", tags=["ai"])
 # app.include_router(inquiries.router, prefix="/api/inquiries", tags=["inquiries"])
