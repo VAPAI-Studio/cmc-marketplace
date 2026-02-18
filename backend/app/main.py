@@ -8,8 +8,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 import logging
 
-# Sentry error tracking (only in production)
-if settings.environment == "production" and hasattr(settings, 'sentry_dsn') and settings.sentry_dsn:
+# Sentry error tracking (only in production, only if DSN is configured)
+if settings.sentry_dsn and settings.sentry_dsn.startswith("https://"):
     sentry_sdk.init(
         dsn=settings.sentry_dsn,
         traces_sample_rate=0.2,
