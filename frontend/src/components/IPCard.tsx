@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Badge, Button } from './ui';
 import { Eye, Heart } from 'lucide-react';
@@ -10,6 +11,8 @@ interface IPCardProps {
 }
 
 export function IPCard({ ip, onViewDetails, slug }: IPCardProps) {
+  const [imgError, setImgError] = useState(false);
+
   const tierColors: Record<typeof ip.tier, 'gold' | 'navy' | 'default'> = {
     flagship: 'gold',
     strong: 'navy',
@@ -23,11 +26,12 @@ export function IPCard({ ip, onViewDetails, slug }: IPCardProps) {
         className="relative aspect-video bg-gradient-to-br from-cmc-navy to-cmc-navy-700 overflow-hidden"
         onClick={() => onViewDetails(ip)}
       >
-        {ip.posterUrl ? (
+        {ip.posterUrl && !imgError ? (
           <img
             src={ip.posterUrl}
             alt={ip.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            onError={() => setImgError(true)}
           />
         ) : (
           <div className="flex items-center justify-center h-full">

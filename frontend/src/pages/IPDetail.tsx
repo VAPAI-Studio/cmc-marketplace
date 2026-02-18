@@ -17,6 +17,7 @@ export function IPDetail() {
   const [saved, setSaved] = useState(false);
   const [savingLoading, setSavingLoading] = useState(false);
   const [showInquiry, setShowInquiry] = useState(false);
+  const [posterError, setPosterError] = useState(false);
 
   useEffect(() => {
     if (!slug) return;
@@ -100,8 +101,13 @@ export function IPDetail() {
         <div className="lg:col-span-1">
           {/* Poster */}
           <div className="aspect-[2/3] bg-gradient-to-br from-cmc-navy to-cmc-navy-700 rounded-xl overflow-hidden mb-6 shadow-elevated">
-            {listing.poster_url ? (
-              <img src={listing.poster_url} alt={listing.title} className="w-full h-full object-cover" />
+            {listing.poster_url && !posterError ? (
+              <img
+                src={listing.poster_url}
+                alt={listing.title}
+                className="w-full h-full object-cover"
+                onError={() => setPosterError(true)}
+              />
             ) : (
               <div className="flex items-center justify-center h-full text-white/60 text-center p-6">
                 <div>

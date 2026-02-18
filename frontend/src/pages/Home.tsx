@@ -7,6 +7,7 @@ import { listingsApi, type Listing } from '../lib/api';
 export function Home() {
   const [featured, setFeatured] = useState<Listing[]>([]);
   const [featuredLoading, setFeaturedLoading] = useState(true);
+  const [imgErrors, setImgErrors] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     listingsApi.featured(4)
@@ -112,8 +113,13 @@ export function Home() {
                 <Link key={ip.id} to={`/library/${ip.slug}`} className="group">
                   <div className="bg-white rounded-xl shadow-card overflow-hidden hover:shadow-elevated transition-shadow h-full flex flex-col">
                     <div className="aspect-video bg-gradient-to-br from-cmc-navy to-cmc-navy-700 relative">
-                      {ip.poster_url ? (
-                        <img src={ip.poster_url} alt={ip.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                      {ip.poster_url && !imgErrors[ip.id] ? (
+                        <img
+                          src={ip.poster_url}
+                          alt={ip.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          onError={() => setImgErrors((prev) => ({ ...prev, [ip.id]: true }))}
+                        />
                       ) : (
                         <div className="flex items-center justify-center h-full text-white/60 text-center p-3">
                           <div className="font-bold text-sm">{ip.title}</div>
