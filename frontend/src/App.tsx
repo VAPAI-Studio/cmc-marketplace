@@ -11,6 +11,7 @@ import { Dashboard } from './pages/Dashboard';
 import { SubmitProject } from './pages/SubmitProject';
 import { IPDetail } from './pages/IPDetail';
 import { NotFound } from './pages/NotFound';
+import { Pricing } from './pages/Pricing';
 
 function AppContent() {
   const { user, signOut } = useAuth();
@@ -49,6 +50,7 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+        <Route path="/pricing" element={<Pricing />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>
