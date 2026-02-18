@@ -28,7 +28,7 @@ export function Header({ isAuthenticated = false, userRole, onLogout }: HeaderPr
               Browse Library
             </Link>
             <Link to="/pricing" className="text-cmc-navy hover:text-cmc-gold transition font-medium">
-              Planes
+              Plans
             </Link>
 
             {isAuthenticated ? (
@@ -86,7 +86,7 @@ export function Header({ isAuthenticated = false, userRole, onLogout }: HeaderPr
                 className="text-cmc-navy hover:text-cmc-gold transition font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Planes
+                Plans
               </Link>
 
               {isAuthenticated ? (

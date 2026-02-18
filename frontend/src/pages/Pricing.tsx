@@ -8,11 +8,11 @@ const plans = [
     price: '$0',
     period: '',
     features: [
-      'Registro Blockchain + Certificado',
-      'Póster desarrollado con IA',
-      'Acceso a General Library',
+      'Blockchain Registration + Certificate',
+      'AI-generated Poster',
+      'Access to General Library',
     ],
-    cta: 'Elegir Free',
+    cta: 'Get Started',
     ctaVariant: 'secondary' as const,
     highlighted: false,
   },
@@ -21,13 +21,13 @@ const plans = [
     price: '$15',
     period: '/mes',
     features: [
-      'Registro Blockchain + Certificado',
-      'Full Pitch Deck: Tag line, Story line, Ajuste del guion, Perfil personajes, Credits',
-      'Referencias generales desarrolladas con IA',
-      'Póster desarrollado con IA',
-      'Acceso prioritario en General Library',
+      'Blockchain Registration + Certificate',
+      'Full Pitch Deck: Tag line, Story line, Script polish, Character profiles, Credits',
+      'AI-generated general references',
+      'AI-generated Poster',
+      'Priority access to General Library',
     ],
-    cta: 'Elegir Standard',
+    cta: 'Choose Standard',
     ctaVariant: 'secondary' as const,
     highlighted: false,
   },
@@ -36,15 +36,15 @@ const plans = [
     price: '$50',
     period: '/mes',
     features: [
-      'Registro Blockchain + Certificado',
-      'Full Pitch Deck: Tag line, Story line, Corrección de guion, Perfiles, Biblia, Credits',
-      'Desglose de locaciones desarrollado con IA',
-      'Mood board profesional desarrollado con IA',
-      'Storyboard desarrollado con IA',
-      'Póster para library desarrollado con IA',
-      'Acceso a Library Special Edition',
+      'Blockchain Registration + Certificate',
+      'Full Pitch Deck: Tag line, Story line, Script correction, Profiles, Bible, Credits',
+      'AI-generated location breakdown',
+      'AI-generated professional mood board',
+      'AI-generated storyboard',
+      'AI-generated library poster',
+      'Access to Library Special Edition',
     ],
-    cta: 'Elegir Business',
+    cta: 'Choose Business',
     ctaVariant: 'secondary' as const,
     highlighted: false,
   },
@@ -53,18 +53,18 @@ const plans = [
     price: '$100',
     period: '/mes',
     features: [
-      'Registro Blockchain + Certificado',
-      'Full Pitch Deck: Tag line, Story line, Corrección de guion, Perfiles, Biblia, Credits',
-      'Desglose de locaciones desarrollado con IA',
-      'Mood board profesional desarrollado con IA',
-      'Storyboard desarrollado con IA',
-      'Budget Breakdown completo desarrollado con IA',
-      'Póster premium para library desarrollado con IA',
-      'Trailer de 3 minutos generado con IA',
-      'Acceso exclusivo a Library VIP Section',
-      'Conexión directa con buyers globales',
+      'Blockchain Registration + Certificate',
+      'Full Pitch Deck: Tag line, Story line, Script correction, Profiles, Bible, Credits',
+      'AI-generated location breakdown',
+      'AI-generated professional mood board',
+      'AI-generated storyboard',
+      'AI-generated full budget breakdown',
+      'AI-generated premium library poster',
+      'AI-generated 3-minute trailer',
+      'Exclusive access to Library VIP Section',
+      'Direct connection with global buyers',
     ],
-    cta: 'Elegir Professional',
+    cta: 'Choose Professional',
     ctaVariant: 'primary' as const,
     highlighted: true,
   },
@@ -75,9 +75,9 @@ export function Pricing() {
     <div className="container-custom py-16">
       {/* Header */}
       <div className="text-center mb-12">
-        <h1 className="text-5xl font-bold text-cmc-navy mb-4">Planes</h1>
+        <h1 className="text-5xl font-bold text-cmc-navy mb-4">Plans</h1>
         <p className="text-xl text-warm-gray-600 max-w-xl mx-auto">
-          Elegí tu nivel. En todos los casos registramos tu obra y devolvemos materiales según el plan.
+          Choose your level. In all cases we register your work and deliver materials according to the plan.
         </p>
       </div>
 
