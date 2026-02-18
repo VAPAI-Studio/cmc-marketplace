@@ -26,11 +26,14 @@ class Settings(BaseSettings):
     anthropic_api_key: str
 
     # CORS
-    cors_origins: str = "http://localhost:5173,http://localhost:3000"
+    cors_origins: str = "http://localhost:5173,http://localhost:5174,http://localhost:3000"
 
     # Storage
     storage_bucket: str = "ip-materials"
     max_file_size_mb: int = 50
+
+    # Sentry
+    sentry_dsn: str = ""
 
     # Rate Limiting
     rate_limit_requests: int = 100

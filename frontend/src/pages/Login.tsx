@@ -1,30 +1,26 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Input, Card } from '../components/ui';
+import { useAuth } from '../contexts/AuthContext';
 import { Film } from 'lucide-react';
 
 export function Login() {
   const navigate = useNavigate();
+  const { signIn } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
     setLoading(true);
 
     try {
-      // TODO: Implement Supabase auth
-      console.log('Login:', { email, password });
-
-      // Mock success for now
-      setTimeout(() => {
-        navigate('/dashboard');
-      }, 1000);
+      await signIn(email, password);
+      navigate('/dashboard');
     } catch (err) {
-      setError('Invalid email or password');
+      // Error handled by auth context (shows toast)
+    } finally {
       setLoading(false);
     }
   };
@@ -45,11 +41,6 @@ export function Login() {
         {/* Login Form */}
         <Card>
           <form onSubmit={handleSubmit} className="space-y-4">
-            {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
-                {error}
-              </div>
-            )}
 
             <Input
               type="email"

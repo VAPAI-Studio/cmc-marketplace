@@ -1,25 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  /* CMC Brand Colors */
+  --color-cmc-navy: #1A1F3C;
+  --color-cmc-navy-50: #E8E9EF;
+  --color-cmc-navy-100: #D1D4DF;
+  --color-cmc-navy-200: #A3A9BF;
+  --color-cmc-navy-300: #757E9F;
+  --color-cmc-navy-400: #47537F;
+  --color-cmc-navy-500: #1A1F3C;
+  --color-cmc-navy-600: #151930;
+  --color-cmc-navy-700: #101324;
+  --color-cmc-navy-800: #0A0C18;
+  --color-cmc-navy-900: #05060C;
+
+  --color-cmc-gold: #D4AF37;
+  --color-cmc-gold-50: #FAF7ED;
+  --color-cmc-gold-100: #F5EFDB;
+  --color-cmc-gold-200: #EBDFB7;
+  --color-cmc-gold-300: #E1CF93;
+  --color-cmc-gold-400: #D7BF6F;
+  --color-cmc-gold-500: #D4AF37;
+  --color-cmc-gold-600: #AA8C2C;
+  --color-cmc-gold-700: #7F6921;
+  --color-cmc-gold-800: #554616;
+  --color-cmc-gold-900: #2A230B;
+
+  /* Font families */
+  --font-family-sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: 'JetBrains Mono', Monaco, 'Courier New', monospace;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-elevated: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
+  --shadow-modal: 0 25px 50px rgba(0,0,0,0.25);
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @layer base {
-  :root {
-    /* CMC Brand Colors */
-    --color-navy: #1A1F3C;
-    --color-gold: #D4AF37;
-    --color-warm-gray: #6B7280;
-  }
-
-  * {
-    @apply border-warm-gray-200;
-  }
 
   body {
-    @apply bg-white text-warm-gray-900 antialiased;
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    @apply bg-white text-gray-900 font-sans antialiased;
     margin: 0;
     min-height: 100vh;
   }
@@ -47,34 +70,43 @@
 
 @layer components {
   /* Button variants */
-  .btn {
+  .btn-primary {
     @apply px-4 py-2 rounded font-medium transition-all duration-200 inline-flex items-center justify-center gap-2;
     @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
     @apply disabled:opacity-50 disabled:cursor-not-allowed;
-  }
-
-  .btn-primary {
-    @apply btn bg-cmc-navy text-white hover:bg-cmc-navy-600;
+    @apply bg-cmc-navy text-white hover:bg-cmc-navy-600;
     @apply focus:ring-cmc-navy-500;
   }
 
   .btn-secondary {
-    @apply btn border-2 border-cmc-navy text-cmc-navy bg-white hover:bg-cmc-navy-50;
+    @apply px-4 py-2 rounded font-medium transition-all duration-200 inline-flex items-center justify-center gap-2;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply border-2 border-cmc-navy text-cmc-navy bg-white hover:bg-cmc-navy-50;
     @apply focus:ring-cmc-navy-500;
   }
 
   .btn-gold {
-    @apply btn bg-cmc-gold text-cmc-navy hover:bg-cmc-gold-600;
+    @apply px-4 py-2 rounded font-medium transition-all duration-200 inline-flex items-center justify-center gap-2;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply bg-cmc-gold text-cmc-navy hover:bg-cmc-gold-600;
     @apply focus:ring-cmc-gold-500;
   }
 
   .btn-ghost {
-    @apply btn text-cmc-navy hover:bg-cmc-navy-50;
+    @apply px-4 py-2 rounded font-medium transition-all duration-200 inline-flex items-center justify-center gap-2;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply text-cmc-navy hover:bg-cmc-navy-50;
     @apply focus:ring-cmc-navy-500;
   }
 
   .btn-danger {
-    @apply btn bg-red-600 text-white hover:bg-red-700;
+    @apply px-4 py-2 rounded font-medium transition-all duration-200 inline-flex items-center justify-center gap-2;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply bg-red-600 text-white hover:bg-red-700;
     @apply focus:ring-red-500;
   }
 
@@ -89,14 +121,18 @@
 
   /* Input */
   .input {
-    @apply w-full px-4 py-2 border border-warm-gray-300 rounded;
+    @apply w-full px-4 py-2 border border-gray-300 rounded;
     @apply focus:outline-none focus:ring-2 focus:ring-cmc-navy-500 focus:border-transparent;
-    @apply placeholder:text-warm-gray-400;
-    @apply disabled:bg-warm-gray-100 disabled:cursor-not-allowed;
+    @apply placeholder:text-gray-400;
+    @apply disabled:bg-gray-100 disabled:cursor-not-allowed;
   }
 
   .input-error {
-    @apply input border-red-500 focus:ring-red-500;
+    @apply w-full px-4 py-2 border rounded;
+    @apply focus:outline-none focus:ring-2 focus:border-transparent;
+    @apply placeholder:text-gray-400;
+    @apply disabled:bg-gray-100 disabled:cursor-not-allowed;
+    @apply border-red-500 focus:ring-red-500;
   }
 
   /* Label */
@@ -105,28 +141,29 @@
   }
 
   /* Badge */
-  .badge {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
-  }
-
   .badge-navy {
-    @apply badge bg-cmc-navy-100 text-cmc-navy-700;
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+    @apply bg-cmc-navy-100 text-cmc-navy-700;
   }
 
   .badge-gold {
-    @apply badge bg-cmc-gold-100 text-cmc-gold-700;
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+    @apply bg-cmc-gold-100 text-cmc-gold-700;
   }
 
   .badge-success {
-    @apply badge bg-green-100 text-green-700;
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+    @apply bg-green-100 text-green-700;
   }
 
   .badge-warning {
-    @apply badge bg-yellow-100 text-yellow-700;
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+    @apply bg-yellow-100 text-yellow-700;
   }
 
   .badge-danger {
-    @apply badge bg-red-100 text-red-700;
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+    @apply bg-red-100 text-red-700;
   }
 
   /* Container */
@@ -143,5 +180,34 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Animations */
+  @keyframes slide-in-right {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-slide-in-right {
+    animation: slide-in-right 0.3s ease-out;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.2s ease-out;
   }
 }

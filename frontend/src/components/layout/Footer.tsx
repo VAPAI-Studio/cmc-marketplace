@@ -1,8 +1,18 @@
 import { Link } from 'react-router-dom';
-import { Film, Mail, Twitter, Linkedin } from 'lucide-react';
+import { Film, Mail, Twitter, Linkedin, Trash2 } from 'lucide-react';
+
+const isDev = import.meta.env.DEV;
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+
+  const clearSession = () => {
+    if (confirm('Clear all auth data? This will log you out and clear localStorage.')) {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.reload();
+    }
+  };
 
   return (
     <footer className="bg-cmc-navy text-white mt-auto">
@@ -88,9 +98,21 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-warm-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-warm-gray-300">
-            © {currentYear} Content Media Company. All rights reserved.
-          </p>
+          <div className="flex items-center gap-4">
+            <p className="text-sm text-warm-gray-300">
+              © {currentYear} Content Media Company. All rights reserved.
+            </p>
+            {isDev && (
+              <button
+                onClick={clearSession}
+                className="text-xs text-warm-gray-500 hover:text-red-400 transition flex items-center gap-1 opacity-50 hover:opacity-100"
+                title="Development only: Clear auth session"
+              >
+                <Trash2 className="w-3 h-3" />
+                Clear Session
+              </button>
+            )}
+          </div>
 
           <div className="flex gap-4">
             <a

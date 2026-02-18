@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clear Auth</title>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+    
+    const supabase = createClient(
+      'https://lrojxsaxgddodrswzuhb.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxyb2p4c2F4Z2Rkb2Ryc3d6dWhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEyNTAwNTQsImV4cCI6MjA4NjgyNjA1NH0.NrlBgLkwchu8jfTfeMaDERx_oemImtmqMvgykDLjtaY'
+    )
+    
+    async function clearAll() {
+      await supabase.auth.signOut()
+      localStorage.clear()
+      sessionStorage.clear()
+      document.body.innerHTML = '<h1>✅ Auth cleared! Close this tab and try again.</h1>'
+      console.log('Cleared all auth data')
+    }
+    
+    clearAll()
+  </script>
+</head>
+<body>
+  <h1>Clearing auth...</h1>
+</body>
+</html>

@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Input, Select, Card } from '../components/ui';
+import { useAuth } from '../contexts/AuthContext';
+import { useToastHelpers } from '../components/ui';
 import { Film } from 'lucide-react';
 
 export function Register() {
   const navigate = useNavigate();
+  const { signUp } = useAuth();
+  const toast = useToastHelpers();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -13,7 +17,6 @@ export function Register() {
     role: '',
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
   const roleOptions = [
     { value: 'creator', label: 'Creator (I have content to sell)' },
@@ -22,36 +25,41 @@ export function Register() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
 
     // Validation
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      toast.error('Passwords do not match');
       return;
     }
 
     if (formData.password.length < 8) {
-      setError('Password must be at least 8 characters');
+      toast.error('Password must be at least 8 characters');
       return;
     }
 
     if (!formData.role) {
-      setError('Please select a role');
+      toast.error('Please select a role');
+      return;
+    }
+
+    if (!formData.displayName.trim()) {
+      toast.error('Please enter your display name');
       return;
     }
 
     setLoading(true);
 
     try {
-      // TODO: Implement Supabase auth
-      console.log('Register:', formData);
-
-      // Mock success for now
-      setTimeout(() => {
-        navigate('/dashboard');
-      }, 1000);
+      await signUp(
+        formData.email,
+        formData.password,
+        formData.role as 'creator' | 'buyer',
+        formData.displayName
+      );
+      navigate('/dashboard');
     } catch (err) {
-      setError('Registration failed. Please try again.');
+      // Error handled by auth context (shows toast)
+    } finally {
       setLoading(false);
     }
   };
@@ -76,11 +84,6 @@ export function Register() {
         {/* Register Form */}
         <Card>
           <form onSubmit={handleSubmit} className="space-y-4">
-            {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
-                {error}
-              </div>
-            )}
 
             <Select
               label="I am a..."

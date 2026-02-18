@@ -22,10 +22,12 @@ pydantic-settings==2.7.0
 email-validator==2.2.0
 
 # File handling
-PyPDF2==3.0.1
+pypdf==6.7.1
 python-magic==0.4.27
 pillow==11.0.0
 
 # Utilities
 httpx==0.27.0
-aiofiles==24.1.0
+
+# Monitoring
+sentry-sdk[fastapi]==2.53.0

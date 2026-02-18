@@ -1,12 +1,13 @@
-import { InputHTMLAttributes, forwardRef } from 'react';
+import { forwardRef, type InputHTMLAttributes } from 'react';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   label?: string;
+  helperText?: string;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ error, label, className = '', id, ...props }, ref) => {
+  ({ error, label, helperText, className = '', id, ...props }, ref) => {
     const inputId = id || props.name;
 
     return (
@@ -23,6 +24,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
+        {helperText && !error && <p className="mt-1 text-sm text-warm-gray-500">{helperText}</p>}
       </div>
     );
   }

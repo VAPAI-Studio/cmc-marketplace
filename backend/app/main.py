@@ -2,10 +2,19 @@
 CMC IP Marketplace - Main FastAPI Application
 """
 
+import sentry_sdk
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 import logging
+
+# Sentry error tracking (only in production)
+if settings.environment == "production" and hasattr(settings, 'sentry_dsn') and settings.sentry_dsn:
+    sentry_sdk.init(
+        dsn=settings.sentry_dsn,
+        traces_sample_rate=0.2,
+        environment=settings.environment,
+    )
 
 # Configure logging
 logging.basicConfig(
@@ -62,17 +71,16 @@ async def root():
 # API Router Imports
 # ==========================================
 
-from app.api import auth, users
+from app.api import auth, users, listings, files, ai, favorites, inquiries, admin
 
 app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(users.router, prefix="/api/users", tags=["users"])
-
-# To be added in later phases:
-# from app.api import listings, ai, inquiries, admin
-# app.include_router(listings.router, prefix="/api/listings", tags=["listings"])
-# app.include_router(ai.router, prefix="/api/ai", tags=["ai"])
-# app.include_router(inquiries.router, prefix="/api/inquiries", tags=["inquiries"])
-# app.include_router(admin.router, prefix="/api/admin", tags=["admin"])
+app.include_router(listings.router, prefix="/api", tags=["listings"])
+app.include_router(files.router, prefix="/api", tags=["files"])
+app.include_router(ai.router, prefix="/api", tags=["ai"])
+app.include_router(favorites.router, prefix="/api", tags=["favorites"])
+app.include_router(inquiries.router, prefix="/api", tags=["inquiries"])
+app.include_router(admin.router, prefix="/api", tags=["admin"])
 
 
 # ==========================================

@@ -62,21 +62,46 @@ async def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security)
 ) -> Dict:
     """
-    Dependency to get current authenticated user from JWT token
-    For MVP, we'll primarily use Supabase Auth on frontend.
-    This is for backend-to-backend or admin operations.
+    Validates Supabase JWT token and returns user profile.
+    The frontend sends Supabase access_token as Bearer.
     """
-    token = credentials.credentials
-    payload = verify_token(token)
+    from app.services.supabase_service import supabase_service
 
-    user_id: str = payload.get("sub")
-    if user_id is None:
+    token = credentials.credentials
+
+    try:
+        # Validate token with Supabase (gets user from auth.users)
+        auth_response = supabase_service.client.auth.get_user(token)
+        if not auth_response or not auth_response.user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid or expired token"
+            )
+
+        supabase_user = auth_response.user
+
+        # Get user profile from our users table
+        profile_response = supabase_service.client.table("users") \
+            .select("*") \
+            .eq("id", supabase_user.id) \
+            .single() \
+            .execute()
+
+        if not profile_response.data:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="User profile not found"
+            )
+
+        return profile_response.data
+
+    except HTTPException:
+        raise
+    except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate credentials"
         )
-
-    return payload
 
 
 async def require_role(required_role: str):
